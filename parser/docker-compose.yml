@@ -1,0 +1,30 @@
+version: '3'
+services:
+  parser_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5003:5002"
+    depends_on:
+      - rabbitmq
+
+  db_service:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    ports:
+      - "5002:5002"
+    depends_on:
+      - mongodb
+
+  rabbitmq:
+    image: "rabbitmq:management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  
+  mongodb:
+    image: "mongo"
+    ports:
+      - "27017:27017"
